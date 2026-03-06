@@ -13,14 +13,18 @@
 
 /* Function prototype */
 int is_palindrome(const char *str);
+void test_obvious_palindrome(void);
+void test_empty_string(void);
+void test_single_char(void);
 
 /* ============================================================
  * EXAMPLE TEST - Students should follow this pattern
  * ============================================================ */
 
-void test_obvious_palindrome(void) {
-    TEST_CHECK(is_palindrome("racecar") == 1);
-    TEST_MSG("Expected 'racecar' to be a palindrome");
+void test_obvious_palindrome(void)
+{
+    TEST_CHECK(is_palindrome("racecar")==1);
+    TEST_MSG("Expected \"racecar\" to be a palindrome");
 }
 
 /* ============================================================
@@ -38,7 +42,17 @@ void test_obvious_palindrome(void) {
  * 2. Use TEST_MSG("message") to explain what went wrong if it fails
  * ============================================================ */
 
+void test_empty_string(void)
+{
+	TEST_CHECK(is_palindrome("")==1);
+	TEST_MSG("Expected \"\" to be a palindrome");
+}
 
+void test_single_char(void)
+{
+	TEST_CHECK(is_palindrome("a")==1);
+	TEST_MSG("Expected \"a\" to be a palindrome");
+}
 
 /* ============================================================
  * TEST_LIST - Register all your tests here
@@ -46,13 +60,16 @@ void test_obvious_palindrome(void) {
  * Format: { "test name shown in output", function_name },
  * Must end with { NULL, NULL }
  * ============================================================ */
-TEST_LIST = {
-    { "obvious palindrome (racecar)", test_obvious_palindrome },
+TEST_LIST=
+{
+    {"obvious palindrome (racecar)",test_obvious_palindrome},
+	{"empty string",test_empty_string},
+	{"single character",test_single_char},
     /* TODO: Add your tests here, e.g.:
-     * { "single character", test_single_char },
+	 * { "single character", test_single_char },
      * { "empty string", test_empty_string },
      */
-    { NULL, NULL }
+    {NULL,NULL}
 };
 
 /* ============================================================
@@ -65,10 +82,13 @@ TEST_LIST = {
  * @param str The string to be checked.
  * @return int 1 if the string is a palindrome, 0 otherwise.
  */
-int is_palindrome(const char *str) {
-    int len = strlen(str);
-    for (int i = 0; i < len / 2; i++) {
-        if (str[i] != str[len - i - 1]) {
+int is_palindrome(const char *str)
+{
+    int len=strlen(str);
+    for(int i=0;i<len/2;i++)
+	{
+        if(str[i]!=str[len-i-1])
+		{
             return 0;
         }
     }
