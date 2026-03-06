@@ -90,7 +90,7 @@ unsigned char** allocateArray(int height, int width)
 unsigned char** readImageFile(unsigned char* fn, int* height, int* width)
 {
 	unsigned char temp[10];
-	int h,w;
+	int h,w; //input height and width from file, arguably could be consolidated with height and width
 	FILE* f=fopen(fn,"r");
 	fscanf(f,"%s ",temp);
 	fscanf(f,"%d %d",&h,&w);
