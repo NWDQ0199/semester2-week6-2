@@ -100,7 +100,7 @@ unsigned char** readImageFile(unsigned char* fn, int* height, int* width)
 	{
 		for(int j=0;j<w;j++)
 		{
-			fscanf(f,"%hhd",&p[i][j]);
+			fscanf(f,"%hhd",&p[i][j]); //not sure if this should be %hhu since p[i][j] is a uint8
 		}
 	}
 	*height=h;
