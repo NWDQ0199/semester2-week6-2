@@ -95,17 +95,17 @@ unsigned char** readImageFile(unsigned char* fn, int* height, int* width)
 	fscanf(f,"%s ",temp);
 	fscanf(f,"%d %d",&h,&w);
 	fscanf(f,"%s ",temp);
-	unsigned char** p=allocateArray(h,w);
+	unsigned char** image=allocateArray(h,w);
 	for(int i=0;i<h;i++)
 	{
 		for(int j=0;j<w;j++)
 		{
-			fscanf(f,"%hhd",&p[i][j]); //not sure if this should be %hhu since p[i][j] is a uint8
+			fscanf(f,"%hhd",&image[i][j]); //not sure if this should be %hhu since p[i][j] is a uint8
 		}
 	}
 	*height=h;
 	*width=w;
-	return p;
+	return image;
 }
 
 void printImage(unsigned char** image, int height, int width)
