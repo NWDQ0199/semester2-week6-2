@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int getUserInput(unsigned char *message);
-void menu(void);
-unsigned char **allocateArray(int height, int width);
-unsigned char **read(unsigned char *fn, int *a, int *b);
-void printImage(unsigned char **p, int a, int b);
+int getUserInput(unsigned char* message);
+void displayMenu(void);
+unsigned char** allocateArray(int height, int width);
+unsigned char** readImageFile(unsigned char* fn, int* height, int* width);
+void printImage(unsigned char** image, int height, int width);
+void invertImage(unsigned char** image, int height, int width);
 
-int main(int argc, unsigned char **argv)
+int main(int argc, unsigned char** argv)
 {
 	if(argc!=2)
 	{
@@ -16,14 +17,14 @@ int main(int argc, unsigned char **argv)
 	}
 
 	int height,width;
-	unsigned char **image;
+	unsigned char** image;
 	image=readImageFile(argv[1],&height,&width);
 
 	int c;
 	while(1)
 	{
 		c=-1;
-		menu();
+		displayMenu();
 		while(c<1)
 		{
 			c=getUserInput("Enter choice");
@@ -35,6 +36,7 @@ int main(int argc, unsigned char **argv)
 				printImage(image,height,width);
 				break;
 			case 2:
+				invertImage(image,height,width);
 				break;
 			case 3:
 				break;
@@ -49,11 +51,11 @@ int main(int argc, unsigned char **argv)
 	}
 	for(int i=0;i<height;i++)
 	{
-		free(i[i]);
+		free(image[i]);
 	}
 }
 
-int getUserInput(unsigned char *message)
+int getUserInput(unsigned char* message)
 {
 	unsigned char buffer[100];
 	int choice;
@@ -67,7 +69,7 @@ int getUserInput(unsigned char *message)
 	return choice;
 }
 
-void menu(void)
+void displayMenu(void)
 {
 	printf("1 - View PGM Image\n");
 	printf("2 - Invert Image\n");
@@ -76,7 +78,7 @@ void menu(void)
 	printf("5 - quit\n");
 }
 
-unsigned char **allocateArray(int height, int width)
+unsigned char** allocateArray(int height, int width)
 {
 	unsigned char** array=calloc(height,sizeof(unsigned char*));
 	for(int i=0;i<height;i++)
@@ -86,15 +88,15 @@ unsigned char **allocateArray(int height, int width)
 	return array;
 }
 
-unsigned char **readImageFile(unsigned char *fn, int *height, int *width)
+unsigned char** readImageFile(unsigned char* fn, int* height, int* width)
 {
 	unsigned char temp[10];
 	int h,w;
-	FILE *f=fopen(fn,"r");
+	FILE* f=fopen(fn,"r");
 	fscanf(f,"%s ",temp);
 	fscanf(f,"%d %d",&h,&w);
 	fscanf(f,"%s ",temp);
-	unsigned char **p=allocateArray(h,w);
+	unsigned char** p=allocateArray(h,w);
 	for(int i=0;i<h;i++)
 	{
 		for(int j=0;j<w;j++)
@@ -107,14 +109,27 @@ unsigned char **readImageFile(unsigned char *fn, int *height, int *width)
 	return p;
 }
 
-void printImage(unsigned char **p, int a, int b)
+void printImage(unsigned char** image, int height, int width)
 {
-	for(int i=0;i<a;i++)
+	for(int i=0;i<height;i++)
 	{
-		for(int j=0;j<b;j++)
+		for(int j=0;j<width;j++)
 		{
-			printf("%d%s",p[i][j],(p[i][j]<100)?(p[i][j]<10)?"\t ":"\t":" ");
+			printf("%d%s",image[i][j],(image[i][j]<100)?(image[i][j]<10)?"   ":"  ":" ");
+			//these ternary operators are for displaying the image properly
+			//so that "123", "23" and "3" are all aligned by making them "123", " 23" and "  3"
 		}
 		printf("\n");
+	}
+}
+
+void invertImage(unsigned char** image, int height, int width)
+{
+	for(int i=0;i<height;i++)
+	{
+		for(int j=0;j<width;j++)
+		{
+			image[i][j]=255-image[i][j];
+		}
 	}
 }
