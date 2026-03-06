@@ -7,6 +7,7 @@ unsigned char** allocateArray(int height, int width);
 unsigned char** readImageFile(unsigned char* fn, int* height, int* width);
 void printImage(unsigned char** image, int height, int width);
 void invertImage(unsigned char** image, int height, int width);
+void freeImage(unsigned char** image, int height);
 
 int main(int argc, unsigned char** argv)
 {
@@ -43,16 +44,14 @@ int main(int argc, unsigned char** argv)
 			case 4:
 				break;
 			case 5:
+				freeImage(image,height);
 				return 0;
 			default:
 				printf("Bad choice\n");
 				break;
 		}
 	}
-	for(int i=0;i<height;i++)
-	{
-		free(image[i]);
-	}
+	freeImage(image,height);
 }
 
 int getUserInput(unsigned char* message)
@@ -62,7 +61,7 @@ int getUserInput(unsigned char* message)
 	printf("%s: ",message);
 	fgets(buffer,100,stdin);
 	int check=sscanf(buffer,"%d",&choice);
-	if(!check)
+	if(check!=1)
 	{
 		return -1;
 	}
@@ -132,4 +131,13 @@ void invertImage(unsigned char** image, int height, int width)
 			image[i][j]=255-image[i][j];
 		}
 	}
+}
+
+void freeImage(unsigned char** image, int height)
+{
+	for(int i=0;i<height;i++)
+	{
+		free(image[i]);
+	}
+	free(image);
 }
