@@ -1,3 +1,7 @@
+# eeeeeee
+this is a _second_ fork of this repo containing the work from session 2
+the other semester2-week6 is for session 1 and is slightly outdated
+
 # Week 6: Functions in C
 
 Tasks for Week 6, covering functions, recursion, file I/O, and pass-by-reference.
