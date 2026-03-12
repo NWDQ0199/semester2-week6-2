@@ -97,9 +97,9 @@ int sum_array(int *arr, int n)
 	int total=0;
 	for(int i=0;i<n;i++)
 	{
-		
+		total+=arr[i];
 	}
-	return 0; // Replace this
+	return total; // Replace this
 }
 
 /**
@@ -118,8 +118,13 @@ int sum_array(int *arr, int n)
  *
  * Hint: Swap elements from both ends, moving toward the middle
  */
-void reverse_array(int *arr, int n) {
+void reverse_array(int *arr, int n)
+{
 	// TODO: Implement this function
+	for(int i=0;i<n/2;i++) //n/2 truncates to the integer part of n/2 which is what we want
+	{
+		swap_values(&arr[n-i-1],&arr[i]);
+	}
 }
 
 /**
@@ -135,10 +140,12 @@ void reverse_array(int *arr, int n) {
  * Example: average([1,2,3,4,5], 5) returns 3.0
  * Example: average([1,2], 2) returns 1.5
  */
-double average(int *arr, int n) {
+double average(int *arr, int n)
+{
 	// TODO: Implement this function
 	// Hint: Be careful with integer division!
-	return 0.0; // Replace this
+	int total=sum_array(arr,n);
+	return total/(float)n; // Replace this
 }
 
 /**
