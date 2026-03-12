@@ -145,7 +145,7 @@ double average(int *arr, int n)
 	// TODO: Implement this function
 	// Hint: Be careful with integer division!
 	int total=sum_array(arr,n);
-	return total/(float)n; // Replace this
+	return (double)total/(double)n; // Replace this
 }
 
 /**
@@ -166,10 +166,20 @@ double average(int *arr, int n)
  *	 int max = find_max(arr, 5, &idx);
  *	 // max == 9, idx == 3
  */
-int find_max(int *arr, int n, int *index) {
+int find_max(int *arr, int n, int *index)
+{
 	// TODO: Implement this function
-	*index = 0;
-	return 0; // Replace this
+	*index=0;
+	int max=-2147483648;
+	for(int i=0;i<n;i++)
+	{
+		if(arr[i]>max)
+		{
+			max=arr[i];
+			*index=i;
+		}
+	}
+	return max; // Replace this
 }
 
 /* ============================================================
@@ -177,7 +187,8 @@ int find_max(int *arr, int n, int *index) {
  * https://github.com/mity/acutest
  * ============================================================ */
 
-void test_add_values(void) {
+void test_add_values(void)
+{
 	TEST_CHECK(add_values(3, 4) == 7);
 	TEST_MSG("Expected add_values(3, 4) = 7");
 
@@ -191,7 +202,8 @@ void test_add_values(void) {
 	TEST_MSG("Expected add_values(-3, -7) = -10");
 }
 
-void test_swap_values(void) {
+void test_swap_values(void)
+{
 	int a, b;
 
 	a = 5;
